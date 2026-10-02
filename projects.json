@@ -34,5 +34,14 @@
     "image": "assets/images/project4.jpg",
     "show": true,
     "order": 4
+  },
+  {
+    "title": "Sample Project 5 (delete later)",
+    "description": "This is a sample 5th project to test the See more button. Remove it when you add real projects.",
+    "tags": ["Sample", "Test"],
+    "category": "automation",
+    "image": "assets/images/project1.jpg",
+    "show": true,
+    "order": 5
   }
 ]
