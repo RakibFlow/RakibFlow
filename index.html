@@ -587,5 +587,50 @@ typeLoop();
     .catch(function (err) { console.warn("projects.json not loaded, using built-in cards:", err); });
 })();
 </script>
+
+<!-- ===== SEE MORE BUTTON (first 4 projects shown, rest on click) ===== -->
+<script>
+(function () {
+  var LIMIT = 4;
+  var grid = document.querySelector("#portfolio .portfolio");
+  if (!grid) return;
+  var expanded = false;
+
+  var wrap = document.createElement("div");
+  wrap.style.cssText = "text-align:center;margin-top:36px;display:none";
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "btn primary";
+  btn.style.cursor = "pointer";
+  btn.innerHTML = 'See more <i class="fa-solid fa-arrow-down"></i>';
+  wrap.appendChild(btn);
+  grid.parentNode.insertBefore(wrap, grid.nextSibling);
+
+  function currentFilter() {
+    var a = document.querySelector(".filter.active");
+    return a ? a.dataset.filter : "all";
+  }
+
+  function apply() {
+    var f = currentFilter();
+    var shown = 0, hidden = 0;
+    grid.querySelectorAll(".project").forEach(function (p) {
+      var match = f === "all" || p.dataset.cat.indexOf(f) !== -1;
+      if (!match) { p.style.display = "none"; return; }
+      shown++;
+      if (expanded || shown <= LIMIT) { p.style.display = "block"; }
+      else { p.style.display = "none"; hidden++; }
+    });
+    wrap.style.display = hidden > 0 ? "block" : "none";
+  }
+
+  btn.addEventListener("click", function () { expanded = true; apply(); });
+  document.querySelectorAll(".filter").forEach(function (b) {
+    b.addEventListener("click", function () { expanded = false; apply(); });
+  });
+  new MutationObserver(apply).observe(grid, { childList: true });
+  apply();
+})();
+</script>
 </body>
 </html>
