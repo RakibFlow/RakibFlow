@@ -519,5 +519,73 @@ typeLoop();
   });
 })();
 </script>
+
+<!-- ===== PORTFOLIO FROM projects.json (built-in cards above stay as fallback) ===== -->
+<script>
+(function () {
+  var JSON_URL = "projects.json";
+  var CACHE_KEY = "rf_portfolio_json_v1";
+
+  var grid = document.querySelector("#portfolio .portfolio");
+  if (!grid) return;
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function clean(data) {
+    if (!Array.isArray(data)) return [];
+    var list = data.filter(function (p) {
+      var s = String(p && p.show == null ? true : p && p.show).toLowerCase();
+      return p && p.title && s !== "false" && s !== "no" && s !== "0";
+    });
+    list.sort(function (a, b) { return (parseFloat(a.order) || 999) - (parseFloat(b.order) || 999); });
+    return list;
+  }
+
+  function render(list) {
+    if (!list.length) return;
+    grid.innerHTML = list.map(function (p, i) {
+      var alt = ((i % 2) + Math.floor(i / 2)) % 2 === 1 ? " alt" : "";
+      var tagArr = Array.isArray(p.tags) ? p.tags : String(p.tags || "").split(",");
+      var tags = tagArr.map(function (t) { return String(t).trim(); }).filter(Boolean)
+        .map(function (t) { return '<span class="tag">' + esc(t) + "</span>"; }).join("");
+      var id = "proj" + (i + 1);
+      return '<article class="project" id="' + id + '" data-cat="' + esc(p.category) + '">' +
+        '<div class="project-visual' + alt + '"><div class="mock-img"><img src="' + esc(p.image) + '" alt="' + esc(p.title) + '"></div></div>' +
+        '<div class="project-body"><h3>' + esc(p.title) + "</h3>" +
+        '<p class="about-copy">' + esc(p.description) + "</p>" +
+        '<div class="tags">' + tags + "</div>" +
+        '<button class="btn" onclick="openProject(\'' + id + '\')">View Design <i class="fa-solid fa-arrow-right"></i></button>' +
+        "</div></article>";
+    }).join("");
+    var active = document.querySelector(".filter.active");
+    var f = active ? active.dataset.filter : "all";
+    grid.querySelectorAll(".project").forEach(function (p) {
+      p.style.display = (f === "all" || p.dataset.cat.indexOf(f) !== -1) ? "block" : "none";
+    });
+  }
+
+  // Show last good data instantly (if any), then refresh from projects.json
+  var cached = null;
+  try { cached = localStorage.getItem(CACHE_KEY); } catch (e) {}
+  if (cached) { try { render(JSON.parse(cached)); } catch (e) {} }
+
+  fetch(JSON_URL, { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(function (data) {
+      var list = clean(data);
+      if (!list.length) return;
+      var json = JSON.stringify(list);
+      if (json !== cached) {
+        render(list);
+        try { localStorage.setItem(CACHE_KEY, json); } catch (e) {}
+      }
+    })
+    .catch(function (err) { console.warn("projects.json not loaded, using built-in cards:", err); });
+})();
+</script>
 </body>
 </html>
