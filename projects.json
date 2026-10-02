@@ -1,0 +1,38 @@
+[
+  {
+    "title": "AI WhatsApp Sales Assistant",
+    "description": "AI-powered customer conversations, qualification and automated follow-up.",
+    "tags": ["AI Agent", "WhatsApp", "CRM"],
+    "category": "agents automation",
+    "image": "assets/images/project1.jpg",
+    "show": true,
+    "order": 1
+  },
+  {
+    "title": "Automated Lead Pipeline",
+    "description": "Lead collection, enrichment, scoring and notification workflow.",
+    "tags": ["n8n", "Lead Gen", "API"],
+    "category": "lead automation",
+    "image": "assets/images/project2.jpg",
+    "show": true,
+    "order": 2
+  },
+  {
+    "title": "AI Business Dashboard",
+    "description": "Centralized dashboard for automation activity, leads and business metrics.",
+    "tags": ["AI SaaS", "Dashboard", "Analytics"],
+    "category": "saas agents",
+    "image": "assets/images/project3.jpg",
+    "show": true,
+    "order": 3
+  },
+  {
+    "title": "E-commerce Automation Flow",
+    "description": "Order events, customer notifications and recovery workflows connected together.",
+    "tags": ["E-commerce", "Automation", "Webhook"],
+    "category": "automation",
+    "image": "assets/images/project4.jpg",
+    "show": true,
+    "order": 4
+  }
+]
