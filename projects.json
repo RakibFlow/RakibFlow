@@ -41,7 +41,7 @@
     "tags": ["Gmail", "n8n", "Google Sheets"],
     "category": "marketing-automation lead",
     "image": "assets/images/project5.jpg",
-    "show": false,
+    "show": true,
     "order": 5
   }
 ]
