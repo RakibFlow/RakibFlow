@@ -13,7 +13,7 @@
     "description": "Lead collection, enrichment, scoring and notification workflow.",
     "tags": ["n8n", "Lead Gen", "API"],
     "category": "lead automation",
-    "image": "assets/images/project2.jpg",
+    "image": "assets/images/messenger.jpg",
     "show": true,
     "order": 2
   },
