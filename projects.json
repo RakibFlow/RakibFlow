@@ -36,12 +36,12 @@
     "order": 4
   },
   {
-    "title": "Sample Project 5 (delete later)",
-    "description": "This is a sample 5th project to test the See more button. Remove it when you add real projects.",
-    "tags": ["Sample", "Test"],
-    "category": "automation",
-    "image": "assets/images/project1.jpg",
-    "show": true,
+    "title": "Gmail Marketing Automation",
+    "description": "Leads from Google Sheets, personalized by n8n and sent automatically through Gmail.",
+    "tags": ["Gmail", "n8n", "Google Sheets"],
+    "category": "marketing-automation lead",
+    "image": "assets/images/project5.jpg",
+    "show": false,
     "order": 5
   }
 ]
